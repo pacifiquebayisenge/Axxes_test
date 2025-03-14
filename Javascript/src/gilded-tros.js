@@ -3,63 +3,86 @@ export class GildedTros {
     this.items = items;
   }
 
+  // item names with special conditions for the Quality
+  #specialTitles = [
+    "Good Wine",
+    "Backstage passes for Re:Factor",
+    "Backstage passes for HAXX",
+    "B-DAWG Keychain",
+  ];
+
   updateQuality() {
     for (let i = 0; i < this.items.length; i++) {
-      if (
-        this.items[i].name != 'Good Wine' &&
-        this.items[i].name != 'Backstage passes for Re:Factor' &&
-        this.items[i].name != 'Backstage passes for HAXX'
-      ) {
-        if (this.items[i].quality > 0) {
-          if (this.items[i].name != 'B-DAWG Keychain') {
-            this.items[i].quality = this.items[i].quality - 1;
-          }
-        }
+      const item = this.items[i];
+
+      if (this.#isNormalItem(item)) {
+        this.#decreaseQuality(item);
       } else {
-        if (this.items[i].quality < 50) {
-          this.items[i].quality = this.items[i].quality + 1;
+        this.#increaseQuality(item);
 
-          if (this.items[i].name == 'Backstage passes for Re:Factor') {
-            if (this.items[i].sellIn < 11) {
-              if (this.items[i].quality < 50) {
-                this.items[i].quality = this.items[i].quality + 1;
-              }
-            }
+        if (item.name == "Backstage passes for Re:Factor") {
+          if (item.sellIn < 11) {
+            this.#increaseQuality(item);
+          }
 
-            if (this.items[i].sellIn < 6) {
-              if (this.items[i].quality < 50) {
-                this.items[i].quality = this.items[i].quality + 1;
-              }
-            }
+          if (item.sellIn < 6) {
+            this.#increaseQuality(item);
           }
         }
       }
 
-      if (this.items[i].name != 'B-DAWG Keychain') {
-        this.items[i].sellIn = this.items[i].sellIn - 1;
-      }
+      this.#decreaseSellIn(item);
 
-      if (this.items[i].sellIn < 0) {
-        if (this.items[i].name != 'Good Wine') {
+      if (item.sellIn < 0) {
+        
+        if (item.name != "Good Wine") {
+
           if (
-            this.items[i].name != 'Backstage passes for Re:Factor' ||
-            this.items[i].name != 'Backstage passes for HAXX'
+            item.name != "Backstage passes for Re:Factor" ||
+            item.name != "Backstage passes for HAXX"
           ) {
-            if (this.items[i].quality > 0) {
-              if (this.items[i].name != 'B-DAWG Keychain') {
-                this.items[i].quality = this.items[i].quality - 1;
-              }
-            }
+            this.#decreaseQuality(item);
           } else {
-            this.items[i].quality =
-              this.items[i].quality - this.items[i].quality;
+            item.quality = item.quality - item.quality;
           }
+
+
+
+
+
         } else {
-          if (this.items[i].quality < 50) {
-            this.items[i].quality = this.items[i].quality + 1;
-          }
+          this.#increaseQuality(item);
         }
       }
     }
   }
+
+  #decreaseQuality(item) {
+    if (item.quality == 0 || this.#isLegendaryItem(item)) return;
+    item.quality -= 1;
+  }
+
+  #increaseQuality(item) {
+    if (item.quality >= 50 || this.#isLegendaryItem(item)) return;
+    item.quality += 1;
+  }
+
+  #decreaseSellIn(item) {
+    if (this.#isLegendaryItem(item)) return;
+    item.sellIn -= 1;
+  }
+
+  #isNormalItem(item) {
+    return !this.#specialTitles.includes(item.name);
+  }
+
+  #isBackstageItem(item){
+    retrun ['Backstage passes'].includes(item.name)
+  }
+
+  #isLegendaryItem(item) {
+    return ["B-DAWG Keychain"].includes(item.name);
+  }
+
+  
 }
