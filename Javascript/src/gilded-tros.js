@@ -15,11 +15,16 @@ export class GildedTros {
 
   updateQuality() {
     for (let i = 0; i < this.items.length; i++) {
+
+      
       const item = this.items[i];
 
       //  At the end of each day our system lowers both values for every item
       if (this.#isNormalItem(item) || this.#isSmellyItem(item)) {
         this.#decreaseQuality(item);
+
+        if(this.#isSmellyItem(item)) this.#decreaseQuality(item)
+
       } else {
 
         // "Good Wine" actually increases in Quality the older it gets
@@ -53,6 +58,8 @@ export class GildedTros {
         else {
           // Quality degrades twice as fast
           this.#decreaseQuality(item)
+
+          if(this.#isSmellyItem(item)) this.#decreaseQuality(item)
         }
       }
     }
