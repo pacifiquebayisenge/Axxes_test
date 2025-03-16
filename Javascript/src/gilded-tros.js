@@ -17,45 +17,49 @@ export class GildedTros {
     for (let i = 0; i < this.items.length; i++) {
       const item = this.items[i];
 
-      //  At the end of each day our system lowers both values for every item
-      if (this.#isNormalItem(item) || this.#isSmellyItem(item)) {
-        this.#decreaseQuality(item);
+      switch (true) {
+        case this.#isLegendaryItem(item):
+          // Legendary items do not change in quality or sellIn
+          break;
 
-        // Smelly items: degrade in Quality twice as fast as normal items
-        if (this.#isSmellyItem(item)) this.#decreaseQuality(item);
-      } else {
-        // "Good Wine" actually increases in Quality the older it gets
-        this.#increaseQuality(item);
+        case this.#isGoodWineItem(item):
+          // Good Wine: actually increases in Quality the older it gets
+          this.#increaseQuality(item);
 
-        // for very interesting conferences increases in Quality as its SellIn value approaches
-        if (this.#isBackstageItem(item)) {
-          // Quality increases by 2 when there are 10 days or less
-          if (item.sellIn < 11) this.#increaseQuality(item);
+          if (item.sellIn <= 0) this.#increaseQuality(item);
+          break;
 
-          // Quality increases by 3 when there are 5 days or less
-          if (item.sellIn < 6) this.#increaseQuality(item);
-        }
+        case this.#isBackstageItem(item):
+          if (item.sellIn <= 0) {
+            // Quality drops to 0 after the conference
+            item.quality = 0;
+          } else {
+            // Quality increases by 2 when there are 10 days or less
+            // Quality increases by 3 when there are 5 days or less
+
+            this.#increaseQuality(item);
+            if (item.sellIn < 11) this.#increaseQuality(item);
+            if (item.sellIn < 6) this.#increaseQuality(item);
+          }
+          break;
+
+        case this.#isSmellyItem(item):
+          // Smelly items degrade in Quality twice as fast as normal items
+          this.#decreaseQuality(item);
+          this.#decreaseQuality(item);
+          if (item.sellIn <= 0) {
+            this.#decreaseQuality(item);
+            this.#decreaseQuality(item);
+          }
+          break;
+
+        default: // Normal items
+          this.#decreaseQuality(item);
+          if (item.sellIn <= 0) this.#decreaseQuality(item);
+          break;
       }
 
       this.#decreaseSellIn(item);
-
-      // Once the sell by date has passed
-      if (item.sellIn < 0) {
-        if (this.#isGoodWineItem(item)) {
-          // "Good Wine": increases  Quality the older it gets
-          // Quality degrades twice as fast
-          this.#increaseQuality(item);
-        } else if (this.#isBackstageItem(item)) {
-          // "Backstage passes": Quality drops to 0 after the conference
-          item.quality = 0;
-        } else {
-          // Quality degrades twice as fast
-          this.#decreaseQuality(item);
-
-          // Smelly items: degrade in Quality twice as fast as normal items
-          if (this.#isSmellyItem(item)) this.#decreaseQuality(item);
-        }
-      }
     }
   }
 
