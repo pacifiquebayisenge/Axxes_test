@@ -2,8 +2,7 @@ import { Item } from "../src/item";
 import { GildedTros } from "../src/gilded-tros";
 
 describe("GildedTros: quality of item", () => {
-
-   test("At the end of each day our system lowers the quality for every item", () => {
+  test("At the end of each day our system lowers the quality for every item", () => {
     const items = [
       new Item("test-item-1", 10, 44),
       new Item("test-item-2", 5, 38),
@@ -31,7 +30,6 @@ describe("GildedTros: quality of item", () => {
       expect(appItemsQuality).toEqual(expectedValue);
     }
   });
-
 
   test("Once the sell by date has passed, Quality degrades twice as fast", () => {
     const items = [
@@ -253,11 +251,10 @@ describe("GildedTros: quality of item", () => {
     app.updateQuality();
 
     for (let i = 0; i < items.length; i++) {
-      
       // get item quality prop
       const appItemProps = app.items[i].toString().split(",");
 
-      const appItemsQuality = parseInt(appItemProps[appItemProps.length - 1])
+      const appItemsQuality = parseInt(appItemProps[appItemProps.length - 1]);
 
       // expected value: Quality drops to 0
       const expectedValue = 0;
@@ -287,9 +284,12 @@ describe("GildedTros: quality of item", () => {
       // get item quality prop
       const appItemProps = app.items[i].toString().split(",");
       const appItemsQuality = parseInt(appItemProps[appItemProps.length - 1]);
- 
+
       // Quality decreases twice a normal items but never below zero
-      const expectedValue = appItems[i].sellIn < 0 ? Math.max(0, items[i].quality - 4) : Math.max(0, items[i].quality - 2);
+      const expectedValue =
+        appItems[i].sellIn < 0
+          ? Math.max(0, items[i].quality - 4)
+          : Math.max(0, items[i].quality - 2);
 
       expect(appItemsQuality).toEqual(expectedValue);
     }
@@ -323,6 +323,4 @@ describe("GildedTros: quality of item", () => {
       expect(appItemsQuality).toEqual(expectedValue);
     }
   });
-
-
 });
