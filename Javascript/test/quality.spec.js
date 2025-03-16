@@ -10,7 +10,7 @@ describe("GildedTros: quality of item", () => {
     expect(app.items[0].name).toEqual('foo');
   });
 
-  // test("At the end of each day our system lowers the quality for every item", () => {
+  //  test("At the end of each day our system lowers the quality for every item", () => {
   //   const items = [
   //     new Item("test-item-1", 10, 44),
   //     new Item("test-item-2", 5, 38),
@@ -248,7 +248,7 @@ describe("GildedTros: quality of item", () => {
   //     new Item("Backstage passes for HAXX", -4, 6),
   //     new Item("Backstage passes for HAXX", -3, 0),
   //     new Item("Backstage passes for Re:Factor", 0, 17),
-  //     new Item("Backstage passes for HAXX", 1, 32),
+  //     new Item("Backstage passes for HAXX", 0, 32),
   //   ];
 
   //   // copy of items array
@@ -260,9 +260,11 @@ describe("GildedTros: quality of item", () => {
   //   app.updateQuality();
 
   //   for (let i = 0; i < items.length; i++) {
+      
   //     // get item quality prop
   //     const appItemProps = app.items[i].toString().split(",");
-  //     const appItemsQuality = parseInt(appItemProps[appItemProps.length - 1]);
+
+  //     const appItemsQuality = parseInt(appItemProps[appItemProps.length - 1])
 
   //     // expected value: Quality drops to 0
   //     const expectedValue = 0;
@@ -271,7 +273,7 @@ describe("GildedTros: quality of item", () => {
   //   }
   // });
 
-  // test("Smelly items ('Duplicate Code', 'Long Methods', 'Ugly Variable Names') degrade in Quality twice as fast as normal items", () => {
+  // test("Smelly items degrade in Quality twice as fast as normal items", () => {
   //   const items = [
   //     new Item("Duplicate Code", 0, 20),
   //     new Item("Long Methods", 4, 6),

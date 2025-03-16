@@ -41,21 +41,18 @@ export class GildedTros {
 
       // Once the sell by date has passed
       if (item.sellIn < 0) {
-        
-        if (!this.#isGoodWineItem(item)) {
 
-          if (!this.#isBackstageItem(item)) {
-            // Quality degrades twice as fast
-            this.#decreaseQuality(item);
-          }
-          // "Backstage passes": Quality drops to 0 after the conference
-          else {
-            item.quality = 0;
-          }
-        } else {
+        if(this.#isGoodWineItem(item)) {
           // "Good Wine": increases  Quality the older it gets
           // Quality degrades twice as fast
-          this.#increaseQuality(item);
+          this.#increaseQuality(item)
+        } else if (this.#isBackstageItem(item)) {
+          // "Backstage passes": Quality drops to 0 after the conference
+          item.quality= 0
+        }
+        else {
+          // Quality degrades twice as fast
+          this.#decreaseQuality(item)
         }
       }
     }
