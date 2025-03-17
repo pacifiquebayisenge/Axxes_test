@@ -22,7 +22,7 @@ describe("GildedTros: quality of item", () => {
     for (let i = 0; i < items.length; i++) {
       // get item quality prop
       const appItemProps = app.items[i].toString().split(",");
-      const appItemsQuality = parseInt(appItemProps[appItemProps.length - 1]);
+      const appItemsQuality = parseInt(appItemProps.pop());
 
       // expected value: Quality decreases by 1
       const expectedValue = items[i].quality - 1;
@@ -51,7 +51,7 @@ describe("GildedTros: quality of item", () => {
     for (let i = 0; i < items.length; i++) {
       // get item quality prop
       const appItemProps = app.items[i].toString().split(",");
-      const appItemsQuality = parseInt(appItemProps[appItemProps.length - 1]);
+      const appItemsQuality = parseInt(appItemProps.pop());
 
       // expected value: Quality decreases by 2
       const expectedValue = items[i].quality - 2;
@@ -79,7 +79,7 @@ describe("GildedTros: quality of item", () => {
     for (let i = 0; i < items.length; i++) {
       // get item quality prop
       const appItemProps = app.items[i].toString().split(",");
-      const appItemsQuality = parseInt(appItemProps[appItemProps.length - 1]);
+      const appItemsQuality = parseInt(appItemProps.pop());
 
       // expected value: Minimum possible value
       const expectedValue = 0;
@@ -108,7 +108,7 @@ describe("GildedTros: quality of item", () => {
     for (let i = 0; i < items.length; i++) {
       // get item quality prop
       const appItemProps = app.items[i].toString().split(",");
-      const appItemsQuality = parseInt(appItemProps[appItemProps.length - 1]);
+      const appItemsQuality = parseInt(appItemProps.pop());
 
       // expected value: Quality increases by one
       const expectedValue = items[i].quality + 1;
@@ -137,7 +137,7 @@ describe("GildedTros: quality of item", () => {
     for (let i = 0; i < items.length; i++) {
       // get item quality prop
       const appItemProps = app.items[i].toString().split(",");
-      const appItemsQuality = parseInt(appItemProps[appItemProps.length - 1]);
+      const appItemsQuality = parseInt(appItemProps.pop());
 
       // expected value: Maximun possible value
       const expectedValue = 50;
@@ -166,7 +166,7 @@ describe("GildedTros: quality of item", () => {
     for (let i = 0; i < items.length; i++) {
       // get item quality prop
       const appItemProps = app.items[i].toString().split(",");
-      const appItemsQuality = parseInt(appItemProps[appItemProps.length - 1]);
+      const appItemsQuality = parseInt(appItemProps.pop());
 
       // expected value: Same quality value as original prop
       const expectedValue = items[i].quality;
@@ -195,7 +195,7 @@ describe("GildedTros: quality of item", () => {
     for (let i = 0; i < items.length; i++) {
       // get item quality prop
       const appItemProps = app.items[i].toString().split(",");
-      const appItemsQuality = parseInt(appItemProps[appItemProps.length - 1]);
+      const appItemsQuality = parseInt(appItemProps.pop());
 
       // expected value: Quality increases by 2
       const expectedValue = items[i].quality + 2;
@@ -224,7 +224,7 @@ describe("GildedTros: quality of item", () => {
     for (let i = 0; i < items.length; i++) {
       // get item quality prop
       const appItemProps = app.items[i].toString().split(",");
-      const appItemsQuality = parseInt(appItemProps[appItemProps.length - 1]);
+      const appItemsQuality = parseInt(appItemProps.pop());
 
       // expected value: Quality increases by 3
       const expectedValue = items[i].quality + 3;
@@ -254,7 +254,7 @@ describe("GildedTros: quality of item", () => {
       // get item quality prop
       const appItemProps = app.items[i].toString().split(",");
 
-      const appItemsQuality = parseInt(appItemProps[appItemProps.length - 1]);
+      const appItemsQuality = parseInt(appItemProps.pop());
 
       // expected value: Quality drops to 0
       const expectedValue = 0;
@@ -283,7 +283,7 @@ describe("GildedTros: quality of item", () => {
     for (let i = 0; i < items.length; i++) {
       // get item quality prop
       const appItemProps = app.items[i].toString().split(",");
-      const appItemsQuality = parseInt(appItemProps[appItemProps.length - 1]);
+      const appItemsQuality = parseInt(appItemProps.pop());
 
       // Quality decreases twice a normal items but never below zero
       const expectedValue =
@@ -315,7 +315,7 @@ describe("GildedTros: quality of item", () => {
     for (let i = 0; i < items.length; i++) {
       // get item quality prop
       const appItemProps = app.items[i].toString().split(",");
-      const appItemsQuality = parseInt(appItemProps[appItemProps.length - 1]);
+      const appItemsQuality = parseInt(appItemProps.pop());
 
       // expected value: Quality is always 80
       const expectedValue = 80;

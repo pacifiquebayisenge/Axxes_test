@@ -14,8 +14,11 @@ export class GildedTros {
   #smellyItems = ["Duplicate Code", "Long Methods", "Ugly Variable Names"];
 
   updateQuality() {
-    for (let i = 0; i < this.items.length; i++) {
-      const item = this.items[i];
+
+    this.items.forEach(item => {
+      
+    
+   
 
       switch (true) {
         case this.#isLegendaryItem(item):
@@ -60,7 +63,7 @@ export class GildedTros {
       }
 
       this.#decreaseSellIn(item);
-    }
+    });
   }
 
   #decreaseQuality(item) {
